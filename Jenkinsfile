@@ -15,5 +15,12 @@ pipeline {
                     }
             }
         }
+        stage('Virus-Scan') {
+          steps {
+            script {
+              sh 'freshclam && clamscan -r /jenkins/workspace/${env.JOB_NAME}/${env.BUILD_NUMBER}'
+            }
+          }
+        }
     }
 }
