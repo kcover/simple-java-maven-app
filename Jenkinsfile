@@ -7,6 +7,9 @@ pipeline {
             customWorkspace "/jenkins/workspace/${env.JOB_NAME}/${env.BUILD_NUMBER}"
         }
     }
+     environment {
+            WORKSPACE = "/jenkins/workspace/${env.JOB_NAME}/${env.BUILD_NUMBER}"
+        }
     stages {
         stage('Build') {
             steps {
@@ -18,7 +21,7 @@ pipeline {
         stage('Virus-Scan') {
           steps {
             script {
-              sh 'freshclam && clamscan -r /jenkins/workspace/${env.JOB_NAME}/${env.BUILD_NUMBER}'
+              sh 'freshclam && clamscan -r $WORKSPACE'
             }
           }
         }
